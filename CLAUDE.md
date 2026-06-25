@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **MVP implemented.** The Vite + React + TypeScript app is scaffolded and the MVP is built per [docs/SPEC.md](docs/SPEC.md) and [docs/ROADMAP.md](docs/ROADMAP.md). `docs/SPEC.md` remains the authoritative source of truth; when extending the app, build against it and follow the stack and architecture below rather than inventing alternatives.
 
-The spec is written in Portuguese, and the product is Portuguese (pt-BR): UI strings, section titles, item names, and badge labels are all in Portuguese. Keep them that way.
+The spec docs under [docs/](docs/) are written in English, but the **product is Portuguese (pt-BR)**: UI strings, section titles, item names, and badge labels are all in Portuguese. Keep the product strings that way.
 
 ## What this is
 
@@ -58,3 +58,5 @@ Save on every change. On boot, load the selected version and its state; missing/
 ## Reference
 
 [docs/SPEC.md](docs/SPEC.md) holds the full spec including the `estrela-2020` item lists (8 suspects / 8 weapons / 11 places), the suggested `src/` layout (§7), MVP acceptance criteria (§9), and open decisions (§10). Consult it before adding entities or changing data shapes.
+
+[docs/SPEC-v2.md](docs/SPEC-v2.md) specs the **post-MVP** features (i18n pt-BR/en-US/es — UI chrome only, item names stay pt-BR; dark mode following system + toggle; placeholder asset refresh; UI/UX). New `localStorage` keys it introduces: `clue-pad:locale:v1`, `clue-pad:theme:v1`. Consult it before building any of those.

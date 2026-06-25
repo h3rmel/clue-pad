@@ -1,59 +1,60 @@
-# clue-pad — Roadmap de implementação (MVP)
+# clue-pad — Implementation roadmap (MVP)
 
-Plano passo a passo para construir o MVP descrito em [SPEC.md](SPEC.md). Marcar cada item ao concluir.
+Step-by-step plan to build the MVP described in [SPEC.md](SPEC.md). Check off each item when done.
+
+> Product strings (item names, section titles, badge labels, "Nova partida") are kept in pt-BR on purpose.
 
 ---
 
-## Fase 0 — Scaffold & tooling
-- [x] Inicializar projeto Vite + React + TypeScript com pnpm
-- [x] Configurar Tailwind CSS (v4 via `@tailwindcss/vite`, diretivas no CSS global)
-- [x] Configurar path alias `@/` (vite + tsconfig)
-- [x] Inicializar shadcn/ui via CLI (`components.json`, base theme, smoke test `button`)
-- [x] Verificar `pnpm dev` rodando (HTTP 200) e `pnpm build` limpo
+## Phase 0 — Scaffold & tooling
+- [x] Initialize Vite + React + TypeScript project with pnpm
+- [x] Configure Tailwind CSS (v4 via `@tailwindcss/vite`, directives in the global CSS)
+- [x] Configure `@/` path alias (vite + tsconfig)
+- [x] Initialize shadcn/ui via CLI (`components.json`, base theme, `button` smoke test)
+- [x] Verify `pnpm dev` running (HTTP 200) and `pnpm build` clean
 
-## Fase 1 — Modelo de dados & versões
+## Phase 1 — Data model & versions
 - [x] `src/lib/types.ts` — `Category`, `ClueStatus`, `GameItem`, `GameVersion`
-- [x] `src/lib/games/estrela-2020.ts` — 8 suspeitos / 8 armas / 11 lugares, com `id` slug estável e `image` apontando para `/games/estrela-2020/<slug>.png`
-- [x] `src/lib/games/index.ts` — registro central (array de `GameVersion`) + helper `getVersion(id)`
+- [x] `src/lib/games/estrela-2020.ts` — 8 suspects / 8 weapons / 11 places, with stable slug `id` and `image` pointing to `/games/estrela-2020/<slug>.png`
+- [x] `src/lib/games/index.ts` — central registry (array of `GameVersion`) + `getVersion(id)` helper
 
-## Fase 2 — Persistência
-- [x] `src/lib/storage.ts` — load/save com chaves versionadas e segmentadas:
+## Phase 2 — Persistence
+- [x] `src/lib/storage.ts` — load/save with versioned, segmented keys:
   - `clue-pad:state:v1:<gameVersionId>` → `Record<itemId, ClueStatus>`
-  - `clue-pad:selectedVersion:v1` → último `gameVersionId`
-- [x] Fallback robusto: ausente/corrompido → tudo `neutral`
+  - `clue-pad:selectedVersion:v1` → last `gameVersionId`
+- [x] Robust fallback: missing/corrupt → all `neutral`
 
-## Fase 3 — Estado (Context)
-- [x] `src/state/clues.tsx` — Context com: versão ativa, mapa de status, `setStatus`, `resetActiveVersion`, `selectVersion`
-- [x] Carregar estado salvo na inicialização (antes do primeiro paint, sem flash)
-- [x] Persistir a cada mudança; trocar versão preserva estados separados
+## Phase 3 — State (Context)
+- [x] `src/state/clues.tsx` — Context with: active version, status map, `setStatus`, `resetActiveVersion`, `selectVersion`
+- [x] Load saved state on initialization (before first paint, no flash)
+- [x] Persist on every change; switching version preserves separate states
 
-## Fase 4 — Componentes UI
-- [x] Gerar shadcn: `card`, `button`, `badge`, `select`, `dialog`, `drawer`, `alert-dialog`
-- [x] `ClueCard.tsx` — imagem + nome, tratamento visual por estado, `aria-label` (nome + estado), fallback de imagem para placeholder
-- [x] `ClueGrid.tsx` — grid arejado (~3 por largura, mobile-first)
-- [x] `CategorySection.tsx` — título de seção + grid
-- [x] `StatusModal.tsx` — `Drawer` no mobile / `Dialog` no desktop, 3 opções (Neutro · Dúvida · Eliminado), indica estado atual
-- [x] `VersionSelect.tsx` — seletor de versão no cabeçalho
-- [x] `ResetButton.tsx` — "Nova partida" com `AlertDialog` de confirmação
-- [x] `App.tsx` — cabeçalho (VersionSelect + ResetButton) + 3 seções empilhadas (Suspeitos → Armas → Lugares)
+## Phase 4 — UI components
+- [x] Generate shadcn: `card`, `button`, `badge`, `select`, `dialog`, `drawer`, `alert-dialog`
+- [x] `ClueCard.tsx` — image + name, per-state visual treatment, `aria-label` (name + state), image fallback to placeholder
+- [x] `ClueGrid.tsx` — airy grid (~3 per width, mobile-first)
+- [x] `CategorySection.tsx` — section title + grid
+- [x] `StatusModal.tsx` — `Drawer` on mobile / `Dialog` on desktop, 3 options (Neutro · Dúvida · Eliminado), indicates current state
+- [x] `VersionSelect.tsx` — version selector in the header
+- [x] `ResetButton.tsx` — "Nova partida" with `AlertDialog` confirmation
+- [x] `App.tsx` — header (VersionSelect + ResetButton) + 3 stacked sections (Suspeitos → Armas → Lugares)
 
-## Fase 5 — Assets / placeholders
-- [x] Gerar placeholders genéricos (silhuetas/ícones) em `public/games/estrela-2020/` com os 27 nomes de arquivo corretos
-- [x] Confirmar que arte oficial **não** é commitada (apenas placeholders no repo)
+## Phase 5 — Assets / placeholders
+- [x] Generate generic placeholders (silhouettes/icons) in `public/games/estrela-2020/` with the 27 correct filenames
+- [x] Confirm official art is **not** committed (only placeholders in the repo)
 
-## Fase 6 — PWA
-- [x] Configurar `vite-plugin-pwa` (manifest: nome, tema, `display: standalone`)
-- [x] Ícones 192/512
-- [x] Service worker com precache de app shell + assets das versões
-- [x] Testar offline e instalabilidade via `pnpm build` + `pnpm preview`
+## Phase 6 — PWA
+- [x] Configure `vite-plugin-pwa` (manifest: name, theme, `display: standalone`)
+- [x] 192/512 icons
+- [x] Service worker precaching app shell + version assets
+- [x] Test offline and installability via `pnpm build` + `pnpm preview`
 
-## Fase 7 — Verificação (critérios de aceite §9)
-- [x] Tela única, 3 seções (8/8/11)
-- [x] Grid arejado ~3 por largura
-- [x] Tocar card abre modal; selecionar atualiza na hora
-- [x] 3 estados visualmente distintos e legíveis
-- [x] Seletor de versão funcional
-- [x] Estado persiste ao reabrir, segmentado por versão
-- [x] "Nova partida" reseta versão ativa (com confirmação)
-- [x] Instalável e usável offline
-- [x] `pnpm build` limpo (tsc + vite) e lint sem erros
+## Phase 7 — Verification (acceptance criteria §9)
+- [x] Single screen, 3 sections (8/8/11)
+- [x] Airy grid ~3 per width
+- [x] Tapping a card opens the modal; selecting updates instantly
+- [x] 3 states visually distinct and legible
+- [x] Functional version selector
+- [x] State persists on reopen, segmented by version
+- [x] "Nova partida" resets the active version (with confirmation)
+- [x] `pnpm build` clean (tsc + vite) and lint without errors

@@ -1,67 +1,71 @@
-# clue-pad — Especificação Técnica (SPEC)
+# clue-pad — Technical Specification (SPEC)
 
-> Cartilha digital PWA para o jogo de tabuleiro **Detetive** (Estrela).
-> Companion de uso rápido durante a partida física: substitui a cartilha de papel.
+> Digital PWA scorepad for the **Detetive** board game (Estrela).
+> A quick-use companion during the physical match: replaces the paper scorepad.
 
----
-
-## 1. Visão geral
-
-O `clue-pad` é um PWA minimalista usado **junto** ao tabuleiro físico do Detetive. Exibe suspeitos, armas e lugares e permite ao jogador marcar cada item conforme sua dedução. Não há lógica de jogo, multiplayer, sincronização ou backend — é uma cartilha eletrônica, nada além disso.
-
-**Não-objetivos (out of scope):**
-
-- Não valida palpites nem conhece a solução do crime.
-- Não tem contas, login ou sincronização entre dispositivos.
-- Não substitui tabuleiro, dado, cartas físicas ou regras.
-- Não tem múltiplos jogadores no mesmo app (cada jogador usa o seu).
+> **Language note:** this document is written in English, but the **product is Portuguese (pt-BR)**. UI strings, section titles, item names, and badge labels quoted below stay in Portuguese on purpose — keep them that way.
 
 ---
 
-## 2. Stack técnica
+## 1. Overview
 
-| Camada | Escolha |
+`clue-pad` is a minimalist PWA used **alongside** the physical Detetive board. It shows suspects, weapons, and places and lets the player mark each item according to their deduction. There is no game logic, multiplayer, sync, or backend — it's an electronic scorepad, nothing more.
+
+**Non-goals (out of scope):**
+
+- Does not validate guesses or know the solution to the crime.
+- No accounts, login, or cross-device sync.
+- Does not replace the board, die, physical cards, or rules.
+- No multiple players in the same app (each player uses their own).
+
+---
+
+## 2. Tech stack
+
+| Layer | Choice |
 |---|---|
 | Build / dev | Vite |
 | UI | React 18+ + TypeScript |
-| Componentes | shadcn/ui (Radix + Tailwind) |
-| Estilo | Tailwind CSS |
+| Components | shadcn/ui (Radix + Tailwind) |
+| Styling | Tailwind CSS |
 | PWA | `vite-plugin-pwa` |
-| Estado | React state + Context (ou Zustand se crescer) |
-| Persistência | localStorage |
-| Gerenciador | pnpm |
-| Deploy | estático (SPA), sem backend |
+| State | React state + Context (or Zustand if it grows) |
+| Persistence | localStorage |
+| Package manager | pnpm |
+| Deploy | static (SPA), no backend |
 
-> shadcn/ui instalado via CLI; componentes ficam no repo (`src/components/ui`). Prováveis: `dialog`/`drawer`, `card`, `button`, `select`, `badge`, `alert-dialog`.
+> shadcn/ui installed via CLI; components live in the repo (`src/components/ui`). Likely: `dialog`/`drawer`, `card`, `button`, `select`, `badge`, `alert-dialog`.
 
 ---
 
-## 3. Entidades e versões do jogo
+## 3. Entities and game versions
 
-As entidades **não** são fixas globalmente: pertencem a uma **versão do jogo** selecionável. O app carrega uma versão por vez; trocar a versão troca itens **e** assets.
+Entities are **not** fixed globally: they belong to a selectable **game version**. The app loads one version at a time; switching the version swaps items **and** assets.
 
-### Modelo de versão
+### Version model
 
 ```ts
 type Category = 'suspects' | 'weapons' | 'places';
 
 interface GameItem {
-  id: string;          // slug estável e único dentro da versão, ex: 'sr-marinho'
+  id: string;          // stable, unique slug within the version, e.g. 'sr-marinho'
   name: string;
   category: Category;
-  image: string;       // caminho do asset DAQUELA versão
+  image: string;       // path to THAT version's asset
 }
 
 interface GameVersion {
-  id: string;          // ex: 'estrela-2020'
-  label: string;       // ex: 'Detetive — Estrela (2020)'
+  id: string;          // e.g. 'estrela-2020'
+  label: string;       // e.g. 'Detetive — Estrela (2020)'
   items: GameItem[];
 }
 ```
 
-Registro central de versões (ex: `src/lib/games/index.ts`) exporta um array de `GameVersion`. Adicionar uma nova versão = adicionar um objeto + sua pasta de assets. Nenhuma lógica de UI muda.
+A central version registry (e.g. `src/lib/games/index.ts`) exports an array of `GameVersion`. Adding a new version = adding an object + its asset folder. No UI logic changes.
 
-### Versão inicial — `estrela-2020`
+### Initial version — `estrela-2020`
+
+> Item names below are product content and stay in pt-BR.
 
 **Suspeitos (8):** Sr. Marinho · Dona Branca · Srta. Rosa · Dona Violeta · Mordomo James · Tony Gourmet · Sérgio Soturno · Sargento Bigode
 
@@ -69,9 +73,9 @@ Registro central de versões (ex: `src/lib/games/index.ts`) exporta um array de 
 
 **Lugares (11):** Restaurante · Prefeitura · Banco · Hospital · Mansão · Praça · Floricultura · Hotel · Cemitério · Estação de Trem · Boate
 
-### Assets / imagens — IMPORTANTE
+### Assets / images — IMPORTANT
 
-As **artes oficiais da Estrela são protegidas por direitos autorais e NÃO ficam versionadas no repositório**. A estrutura prevê o *slot* para elas:
+**Estrela's official artwork is copyrighted and is NOT versioned in the repository.** The structure provides the *slot* for it:
 
 ```
 public/games/estrela-2020/
@@ -80,78 +84,78 @@ public/games/estrela-2020/
   ...
 ```
 
-- O repo inclui **placeholders** (ícones genéricos / silhuetas) com os mesmos nomes de arquivo.
-- O usuário que possuir os arquivos licenciados os substitui localmente nessa pasta.
-- `image` em cada `GameItem` aponta para esse caminho; o código não distingue placeholder de arte final.
-- Fallback: se um asset não carregar, exibir placeholder + nome.
+- The repo includes **placeholders** (generic icons / silhouettes) with the same filenames.
+- A user who owns the licensed files replaces them locally in that folder.
+- Each `GameItem`'s `image` points to that path; the code does not distinguish placeholder from final art.
+- Fallback: if an asset fails to load, show a placeholder + name.
 
 ---
 
-## 4. Estados de um item
+## 4. Item states
 
-Cada item tem exatamente um de três estados:
+Each item has exactly one of three states:
 
-| Estado | Significado | Tratamento visual (sugestão) |
+| State | Meaning | Visual treatment (suggested) |
 |---|---|---|
-| `neutral` | Sem marcação (padrão inicial) | Card neutro |
-| `doubt` | Suspeita de ser a carta do crime | Destaque âmbar + badge "Dúvida" |
-| `eliminated` | Carta revelada num palpite → descartada | Esmaecido/dessaturado + badge "Eliminado" |
+| `neutral` | Unmarked (initial default) | Neutral card |
+| `doubt` | Suspected to be the crime card | Amber highlight + "Dúvida" badge |
+| `eliminated` | Card revealed in a guess → discarded | Dimmed/desaturated + "Eliminado" badge |
 
-Estado inicial de todos os itens: `neutral`.
-
----
-
-## 5. Layout e interação
-
-### Tela única com scroll
-- **Uma página** com as três categorias empilhadas: seção **Suspeitos**, **Armas**, **Lugares**, nessa ordem, cada uma com um título de seção.
-- Sem abas. Navegação por scroll vertical. (Opcional pós-MVP: índice/atalho fixo para pular entre seções.)
-
-### Grid arejado
-- Grid de cards com **no máximo ~3 cards por largura de tela**, priorizando respiro e espaço em branco generoso entre elementos.
-- Mobile-first; cards com área de toque grande (imagem + nome).
-- Card reflete o estado atual via cor/badge/opacidade.
-
-### Seleção de estado
-- **Tocar num card** abre um **modal** (`Dialog`, ou `Drawer` no mobile) com as três opções: Neutro · Dúvida · Eliminado.
-- Selecionar uma opção fecha o modal e atualiza o card imediatamente.
-- O modal indica qual é o estado atual.
-
-### Seleção de versão do jogo
-- Controle (`Select`) no topo / cabeçalho para escolher a `GameVersion`.
-- Trocar de versão recarrega itens e assets e zera/segrega o estado (ver §6).
-
-### Nova partida (reset)
-- Botão **"Nova partida"** reseta todos os itens para `neutral`, com `AlertDialog` de confirmação.
+Initial state of all items: `neutral`.
 
 ---
 
-## 6. Persistência
+## 5. Layout and interaction
 
-- Estado salvo em **localStorage**, versionado e **segmentado por versão de jogo**:
-  - chave: `clue-pad:state:v1:<gameVersionId>` → `Record<itemId, ClueStatus>`
-  - chave: `clue-pad:selectedVersion:v1` → último `gameVersionId` usado.
-- No boot: lê a versão selecionada e o estado dela; ausente/corrompido → tudo `neutral`.
-- Salvo a cada mudança.
-- Trocar de versão preserva o estado de cada versão separadamente (não mistura partidas de jogos diferentes).
-- "Nova partida" limpa apenas o estado da versão ativa.
+### Single scrolling screen
+- **One page** with the three categories stacked: section **Suspeitos**, **Armas**, **Lugares**, in that order, each with a section title.
+- No tabs. Vertical scroll navigation. (Optional post-MVP: a fixed index/shortcut to jump between sections.)
+
+### Airy grid
+- Card grid with **at most ~3 cards per screen width**, prioritizing breathing room and generous whitespace between elements.
+- Mobile-first; cards with a large touch area (image + name).
+- The card reflects the current state via color/badge/opacity.
+
+### State selection
+- **Tapping a card** opens a **modal** (`Dialog`, or `Drawer` on mobile) with the three options: Neutro · Dúvida · Eliminado.
+- Selecting an option closes the modal and updates the card immediately.
+- The modal indicates which is the current state.
+
+### Game version selection
+- A control (`Select`) at the top / header to pick the `GameVersion`.
+- Switching version reloads items and assets and resets/segments the state (see §6).
+
+### New match (reset)
+- A **"Nova partida"** button resets all items to `neutral`, with an `AlertDialog` confirmation.
 
 ---
 
-## 7. Arquitetura sugerida
+## 6. Persistence
+
+- State saved in **localStorage**, versioned and **segmented by game version**:
+  - key: `clue-pad:state:v1:<gameVersionId>` → `Record<itemId, ClueStatus>`
+  - key: `clue-pad:selectedVersion:v1` → last used `gameVersionId`.
+- On boot: read the selected version and its state; missing/corrupt → all `neutral`.
+- Saved on every change.
+- Switching version preserves each version's state separately (does not mix matches from different games).
+- "Nova partida" clears only the active version's state.
+
+---
+
+## 7. Suggested architecture
 
 ```
 src/
   lib/
     types.ts                 # Category, ClueStatus, GameItem, GameVersion
     games/
-      index.ts               # registro de versões
-      estrela-2020.ts        # itens da versão inicial
-    storage.ts               # load/save localStorage (versionado + por jogo)
+      index.ts               # version registry
+      estrela-2020.ts        # items for the initial version
+    storage.ts               # load/save localStorage (versioned + per game)
   state/
-    clues.tsx                # Context/store: versão ativa + status por item
+    clues.tsx                # Context/store: active version + per-item status
   components/
-    ui/                      # shadcn/ui (gerado pela CLI)
+    ui/                      # shadcn/ui (generated by the CLI)
     VersionSelect.tsx
     CategorySection.tsx
     ClueGrid.tsx
@@ -161,43 +165,43 @@ src/
   App.tsx
   main.tsx
 public/
-  games/estrela-2020/        # assets (placeholders no repo)
-  manifest / ícones PWA
+  games/estrela-2020/        # assets (placeholders in the repo)
+  manifest / PWA icons
 ```
 
-> `id` dos itens deve ser slug estável (não índice) para a persistência sobreviver a reordenações.
+> Item `id` must be a stable slug (not an index) so persistence survives reordering.
 
 ---
 
-## 8. PWA / requisitos não-funcionais
+## 8. PWA / non-functional requirements
 
-- **Instalável**: manifest com nome, ícones 192/512, tema, `display: standalone`.
-- **Offline-first**: funciona 100% sem rede durante a partida; service worker com precache de app shell + assets da(s) versão(ões).
-- **Mobile-first**: alvo é celular em pé, uso com uma mão.
-- **Boot rápido**: aplicar estado salvo antes do primeiro paint (sem flash de cards não-marcados).
-- **Acessibilidade**: contraste adequado nos três estados; modal navegável por teclado; `aria-label` no card indicando nome + estado.
-- **Sem backend** e sem variáveis de ambiente.
-
----
-
-## 9. Critérios de aceite (MVP)
-
-- [ ] Tela única com as três seções (8 / 8 / 11 itens da `estrela-2020`).
-- [ ] Grid arejado, ~3 cards por largura, bom espaço em branco.
-- [ ] Tocar num card abre o modal com as 3 opções.
-- [ ] Selecionar opção fecha o modal e atualiza o card na hora.
-- [ ] Os três estados têm tratamento visual distinto e legível.
-- [ ] Seletor de versão de jogo funcional (mesmo com só uma versão registrada).
-- [ ] Estado persiste ao fechar/reabrir, segmentado por versão.
-- [ ] "Nova partida" reseta a versão ativa (com confirmação).
-- [ ] App instalável e utilizável offline.
-- [ ] Assets via slot por versão; placeholders no repo, arte oficial fora do repo.
+- **Installable**: manifest with name, 192/512 icons, theme, `display: standalone`.
+- **Offline-first**: works 100% without network during the match; service worker precaching the app shell + the version(s)' assets.
+- **Mobile-first**: the target is a phone held upright, one-handed use.
+- **Fast boot**: apply saved state before first paint (no flash of unmarked cards).
+- **Accessibility**: adequate contrast across the three states; keyboard-navigable modal; `aria-label` on the card indicating name + state.
+- **No backend** and no environment variables.
 
 ---
 
-## 10. Decisões em aberto
+## 9. Acceptance criteria (MVP)
 
-- Origem dos placeholders (Lucide, ícones próprios, ilustrações geradas).
-- `Dialog` vs `Drawer` no mobile para o seletor de estado (sugestão: `Drawer` no mobile, `Dialog` no desktop).
-- Contador opcional por seção (ex: "3 em dúvida") — fora do MVP.
-- Índice/atalho fixo para pular entre seções no scroll — fora do MVP.
+- [ ] Single screen with the three sections (8 / 8 / 11 items of `estrela-2020`).
+- [ ] Airy grid, ~3 cards per width, good whitespace.
+- [ ] Tapping a card opens the modal with the 3 options.
+- [ ] Selecting an option closes the modal and updates the card instantly.
+- [ ] The three states have distinct, legible visual treatment.
+- [ ] Functional game version selector (even with only one version registered).
+- [ ] State persists across close/reopen, segmented by version.
+- [ ] "Nova partida" resets the active version (with confirmation).
+- [ ] App installable and usable offline.
+- [ ] Assets via per-version slot; placeholders in the repo, official art outside the repo.
+
+---
+
+## 10. Open decisions
+
+- Origin of the placeholders (Lucide, custom icons, generated illustrations).
+- `Dialog` vs `Drawer` on mobile for the state selector (suggestion: `Drawer` on mobile, `Dialog` on desktop).
+- Optional per-section counter (e.g. "3 in doubt") — outside the MVP.
+- Fixed index/shortcut to jump between sections while scrolling — outside the MVP.
