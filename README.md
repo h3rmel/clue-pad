@@ -69,6 +69,7 @@ docs/
   SPEC.md                 # authoritative spec (English)
   ROADMAP.md              # MVP implementation roadmap
   SPEC-v2.md              # spec for planned features (i18n, dark mode, etc.)
+  ROADMAP-v2.md           # implementation roadmap for the SPEC-v2 features
 ```
 
 ## Game versions
@@ -97,3 +98,4 @@ Saved on every change; applied before first paint (no flash of unmarked cards). 
 - [docs/SPEC.md](docs/SPEC.md) — full technical spec (source of truth, English).
 - [docs/ROADMAP.md](docs/ROADMAP.md) — MVP implementation roadmap.
 - [docs/SPEC-v2.md](docs/SPEC-v2.md) — spec for planned features (i18n, dark mode, asset refresh, UI/UX).
+- [docs/ROADMAP-v2.md](docs/ROADMAP-v2.md) — implementation roadmap for the SPEC-v2 features.
