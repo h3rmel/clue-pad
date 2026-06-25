@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-**Greenfield.** The repository currently contains only [SPEC.md](SPEC.md) — there is no code, `package.json`, or scaffolding yet. SPEC.md is the authoritative source of truth; build against it. When scaffolding, follow the stack and architecture below rather than inventing alternatives.
+**MVP implemented.** The Vite + React + TypeScript app is scaffolded and the MVP is built per [docs/SPEC.md](docs/SPEC.md) and [docs/ROADMAP.md](docs/ROADMAP.md). `docs/SPEC.md` remains the authoritative source of truth; when extending the app, build against it and follow the stack and architecture below rather than inventing alternatives.
 
 The spec is written in Portuguese, and the product is Portuguese (pt-BR): UI strings, section titles, item names, and badge labels are all in Portuguese. Keep them that way.
 
@@ -20,7 +20,7 @@ shadcn/ui components are generated via its CLI and committed under `src/componen
 
 ## Commands
 
-No `package.json` exists yet. Once scaffolded with Vite + pnpm, the conventional scripts apply:
+Scaffolded with Vite + pnpm; the conventional scripts apply:
 
 ```bash
 pnpm install        # install deps
@@ -57,4 +57,4 @@ Save on every change. On boot, load the selected version and its state; missing/
 
 ## Reference
 
-[SPEC.md](SPEC.md) holds the full spec including the `estrela-2020` item lists (8 suspects / 8 weapons / 11 places), the suggested `src/` layout (§7), MVP acceptance criteria (§9), and open decisions (§10). Consult it before adding entities or changing data shapes.
+[docs/SPEC.md](docs/SPEC.md) holds the full spec including the `estrela-2020` item lists (8 suspects / 8 weapons / 11 places), the suggested `src/` layout (§7), MVP acceptance criteria (§9), and open decisions (§10). Consult it before adding entities or changing data shapes.
