@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { HelpCircle } from "lucide-react"
 import type { ClueStatus, GameItem } from "@/lib/types"
-import { STATUS_META } from "@/lib/status"
+import { STATUS_LABEL_KEY } from "@/lib/status"
+import { useI18n } from "@/state/i18n"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 
@@ -26,7 +27,8 @@ const imageByStatus: Record<ClueStatus, string> = {
 
 export function ClueCard({ item, status, onSelect }: ClueCardProps) {
   const [imgFailed, setImgFailed] = useState(false)
-  const statusLabel = STATUS_META[status].label
+  const { t } = useI18n()
+  const statusLabel = t(STATUS_LABEL_KEY[status])
 
   return (
     <button

@@ -6,6 +6,7 @@ import { CategorySection } from "@/components/CategorySection"
 import { StatusModal } from "@/components/StatusModal"
 import { VersionSelect } from "@/components/VersionSelect"
 import { ResetButton } from "@/components/ResetButton"
+import { LanguageSelect } from "@/components/LanguageSelect"
 
 function App() {
   const { version } = useClues()
@@ -33,7 +34,10 @@ function App() {
         <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-3">
           <div className="flex items-center justify-between gap-3">
             <h1 className="text-xl font-bold tracking-tight">clue-pad</h1>
-            <ResetButton />
+            <div className="flex items-center gap-2">
+              <LanguageSelect />
+              <ResetButton />
+            </div>
           </div>
           <VersionSelect />
         </div>

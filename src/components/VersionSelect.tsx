@@ -1,4 +1,5 @@
 import { useClues } from "@/state/clues"
+import { useI18n } from "@/state/i18n"
 import { GAME_VERSIONS } from "@/lib/games"
 import {
   Select,
@@ -10,11 +11,12 @@ import {
 
 export function VersionSelect() {
   const { version, selectVersion } = useClues()
+  const { t } = useI18n()
 
   return (
     <Select value={version.id} onValueChange={selectVersion}>
       <SelectTrigger
-        aria-label="Versão do jogo"
+        aria-label={t("version.label")}
         className="w-full max-w-[16rem]"
       >
         <SelectValue />

@@ -8,14 +8,14 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 ---
 
 ## Phase 1 — i18n (SPEC-v2 §1)
-- [ ] `src/lib/i18n/` — `pt-BR.ts`, `en-US.ts`, `es.ts` dictionaries + `index.ts` (registry + `Locale` type)
-- [ ] Derive the key type from `pt-BR` so every language must cover every key (compile-time check)
-- [ ] `src/state/i18n.tsx` — `I18nContext` exposing `t(key)` (mirror the `state/clues.tsx` pattern)
-- [ ] First-load auto-detection from `navigator.language`, normalized to one of the 3 (fallback `pt-BR`)
-- [ ] Header language selector (manual override, takes priority over detection)
-- [ ] Persist choice in `clue-pad:locale:v1`; apply on boot
-- [ ] Externalize all hardcoded pt-BR strings: `StatusModal`, `ResetButton`, `CategorySection`, `VersionSelect`, `App`, `ClueCard` aria-labels
-- [ ] Confirm item names + `GameVersion.label` stay in pt-BR (not translated)
+- [x] `src/lib/i18n/` — `pt-BR.ts`, `en-US.ts`, `es.ts` dictionaries + `index.ts` (registry + `Locale` type)
+- [x] Derive the key type from `pt-BR` so every language must cover every key (compile-time check)
+- [x] `src/state/i18n.tsx` — `I18nContext` exposing `t(key)` (mirror the `state/clues.tsx` pattern)
+- [x] First-load auto-detection from `navigator.language`, normalized to one of the 3 (fallback `pt-BR`)
+- [x] Header language selector (manual override, takes priority over detection)
+- [x] Persist choice in `clue-pad:locale:v1`; apply on boot
+- [x] Externalize all hardcoded pt-BR strings: `StatusModal`, `ResetButton`, `CategorySection`, `VersionSelect`, `App`, `ClueCard` aria-labels
+- [x] Confirm item names + `GameVersion.label` stay in pt-BR (not translated)
 
 ## Phase 2 — Dark mode (SPEC-v2 §2)
 - [ ] `ThemeProvider` (Context): resolve `'system' | 'light' | 'dark'` → effective theme, toggle `dark` class on `<html>`

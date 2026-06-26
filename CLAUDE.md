@@ -48,6 +48,9 @@ State lives in `localStorage`, versioned and **segmented by game version** so di
 
 Save on every change. On boot, load the selected version and its state; missing/corrupt → all `neutral`. "Nova partida" resets only the active version's state (behind an `AlertDialog` confirmation). **Apply saved state before first paint** — no flash of unmarked cards.
 
+### i18n (SPEC-v2 §1, implemented)
+UI chrome is translated via a lightweight dictionary + Context (no external lib). Dictionaries live in `src/lib/i18n/` (`pt-BR.ts` is the source of truth; its keys derive `TranslationKey`/`Dictionary`, so `en-US.ts` and `es.ts` are forced to cover every key at compile time). `src/state/i18n.tsx` exposes `useI18n().t(key)`, mirroring `state/clues.tsx`. **Only chrome is translated** — item names and `GameVersion.label` stay pt-BR and come from data, never the dictionary. Locale is auto-detected from `navigator.language` on first load (fallback `pt-BR`); a manual header selector overrides and persists to `clue-pad:locale:v1`. Components reference strings by key (e.g. `STATUS_LABEL_KEY`, `CATEGORY_LABEL_KEY` in `src/lib/status.ts`), not literals.
+
 ## Critical constraints
 
 - **Never commit Estrela's official artwork.** The official art is copyrighted and must stay out of the repo. The repo ships generic **placeholders** (silhouettes/icons) using the *same filenames* under `public/games/<version>/` (e.g. `sr-marinho.png`); users drop in their own licensed files locally. Code does not distinguish placeholder from final art. If an asset fails to load, fall back to placeholder + name.
@@ -59,4 +62,4 @@ Save on every change. On boot, load the selected version and its state; missing/
 
 [docs/SPEC.md](docs/SPEC.md) holds the full spec including the `estrela-2020` item lists (8 suspects / 8 weapons / 11 places), the suggested `src/` layout (§7), MVP acceptance criteria (§9), and open decisions (§10). Consult it before adding entities or changing data shapes.
 
-[docs/SPEC-v2.md](docs/SPEC-v2.md) specs the **post-MVP** features (i18n pt-BR/en-US/es — UI chrome only, item names stay pt-BR; dark mode following system + toggle; placeholder asset refresh; UI/UX). New `localStorage` keys it introduces: `clue-pad:locale:v1`, `clue-pad:theme:v1`. Consult it before building any of those.
+[docs/SPEC-v2.md](docs/SPEC-v2.md) specs the **post-MVP** features (i18n pt-BR/en-US/es — UI chrome only, item names stay pt-BR; dark mode following system + toggle; placeholder asset refresh; UI/UX). New `localStorage` keys it introduces: `clue-pad:locale:v1`, `clue-pad:theme:v1`. **Phase 1 (i18n) is implemented** — see the i18n note under Core architecture; the remaining tracks (dark mode, placeholders, UI/UX) are not yet built. [docs/ROADMAP-v2.md](docs/ROADMAP-v2.md) tracks phase progress.

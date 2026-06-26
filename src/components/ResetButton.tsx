@@ -1,5 +1,6 @@
 import { RotateCcw } from "lucide-react"
 import { useClues } from "@/state/clues"
+import { useI18n } from "@/state/i18n"
 import { Button } from "@/components/ui/button"
 import {
   AlertDialog,
@@ -15,27 +16,27 @@ import {
 
 export function ResetButton() {
   const { resetActiveVersion } = useClues()
+  const { t } = useI18n()
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="sm">
           <RotateCcw />
-          Nova partida
+          {t("reset.trigger")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Começar nova partida?</AlertDialogTitle>
+          <AlertDialogTitle>{t("reset.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Isto apaga todas as marcações desta versão e volta todos os itens ao
-            estado neutro. Esta ação não pode ser desfeita.
+            {t("reset.description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogCancel>{t("reset.cancel")}</AlertDialogCancel>
           <AlertDialogAction onClick={resetActiveVersion}>
-            Nova partida
+            {t("reset.confirm")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
