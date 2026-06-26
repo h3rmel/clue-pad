@@ -32,4 +32,10 @@ export const enUS: Dictionary = {
 
   // Language selector
   "language.label": "Language",
+
+  // Theme (light/dark mode)
+  "theme.label": "Theme",
+  "theme.system": "System",
+  "theme.light": "Light",
+  "theme.dark": "Dark",
 }

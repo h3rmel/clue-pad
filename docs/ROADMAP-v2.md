@@ -18,12 +18,12 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [x] Confirm item names + `GameVersion.label` stay in pt-BR (not translated)
 
 ## Phase 2 — Dark mode (SPEC-v2 §2)
-- [ ] `ThemeProvider` (Context): resolve `'system' | 'light' | 'dark'` → effective theme, toggle `dark` class on `<html>`
-- [ ] `system` reacts to live `prefers-color-scheme` changes via `matchMedia`
-- [ ] Header theme toggle
-- [ ] Persist preference in `clue-pad:theme:v1`
-- [ ] No-FOUC inline script in `index.html` (apply theme before React mounts)
-- [ ] Update PWA manifest `theme_color`/`background_color` if needed
+- [x] `ThemeProvider` (Context): resolve `'system' | 'light' | 'dark'` → effective theme, toggle `dark` class on `<html>`
+- [x] `system` reacts to live `prefers-color-scheme` changes via `matchMedia`
+- [x] Header theme toggle
+- [x] Persist preference in `clue-pad:theme:v1`
+- [x] No-FOUC inline script in `index.html` (apply theme before React mounts)
+- [x] Update PWA manifest `theme_color`/`background_color` if needed
 - [ ] Verify all four item states are legible/contrasted in dark theme (do after Phase 3)
 
 ## Phase 3 — New state + color rework (SPEC-v2 §4.1–4.2)

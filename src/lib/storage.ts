@@ -5,6 +5,7 @@ import type { ClueStatus, StatusMap } from "@/lib/types"
 const STATE_PREFIX = "clue-pad:state:v1:"
 const SELECTED_VERSION_KEY = "clue-pad:selectedVersion:v1"
 const LOCALE_KEY = "clue-pad:locale:v1"
+const THEME_KEY = "clue-pad:theme:v1"
 
 const VALID_STATUS: readonly ClueStatus[] = ["neutral", "doubt", "eliminated"]
 
@@ -94,6 +95,27 @@ export function loadLocale(): string | null {
 export function saveLocale(locale: string): void {
   try {
     localStorage.setItem(LOCALE_KEY, locale)
+  } catch {
+    // ignore
+  }
+}
+
+/**
+ * Preferência de tema ('system' | 'light' | 'dark'). Preferência global.
+ * O mesmo valor é lido pelo script anti-FOUC em index.html (chave fixa).
+ * A validação fica a cargo de quem lê (state/theme).
+ */
+export function loadTheme(): string | null {
+  try {
+    return localStorage.getItem(THEME_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function saveTheme(theme: string): void {
+  try {
+    localStorage.setItem(THEME_KEY, theme)
   } catch {
     // ignore
   }

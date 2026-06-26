@@ -35,6 +35,12 @@ export const ptBR = {
 
   // Seletor de idioma
   "language.label": "Idioma",
+
+  // Tema (modo claro/escuro)
+  "theme.label": "Tema",
+  "theme.system": "Sistema",
+  "theme.light": "Claro",
+  "theme.dark": "Escuro",
 } as const
 
 export type TranslationKey = keyof typeof ptBR

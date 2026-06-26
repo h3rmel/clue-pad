@@ -7,6 +7,7 @@ import { StatusModal } from "@/components/StatusModal"
 import { VersionSelect } from "@/components/VersionSelect"
 import { ResetButton } from "@/components/ResetButton"
 import { LanguageSelect } from "@/components/LanguageSelect"
+import { ThemeSelect } from "@/components/ThemeSelect"
 
 function App() {
   const { version } = useClues()
@@ -35,6 +36,7 @@ function App() {
           <div className="flex items-center justify-between gap-3">
             <h1 className="text-xl font-bold tracking-tight">clue-pad</h1>
             <div className="flex items-center gap-2">
+              <ThemeSelect />
               <LanguageSelect />
               <ResetButton />
             </div>
