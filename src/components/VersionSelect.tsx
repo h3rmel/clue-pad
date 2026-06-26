@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export function VersionSelect() {
+export function VersionSelect({ triggerClassName }: { triggerClassName?: string }) {
   const { version, selectVersion } = useClues()
   const { t } = useI18n()
 
@@ -17,7 +17,7 @@ export function VersionSelect() {
     <Select value={version.id} onValueChange={selectVersion}>
       <SelectTrigger
         aria-label={t("version.label")}
-        className="w-full max-w-[16rem]"
+        className={triggerClassName ?? "min-w-40 max-w-[16rem]"}
       >
         <SelectValue />
       </SelectTrigger>

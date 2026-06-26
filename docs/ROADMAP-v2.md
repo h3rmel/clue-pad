@@ -47,9 +47,9 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [ ] Update `public/games/estrela-2020/README.md` if style/origin changed; official art stays out of the repo
 
 ## Phase 5 — Header layout / mobile polish (SPEC-v2 §4.3–4.4)
-- [ ] Game-version `Select` right-aligned on mobile
-- [ ] Fit language selector + theme toggle into the header without clutter (group secondary options, e.g. menu/sheet)
-- [ ] Polish state transitions (smooth change, touch feedback); review touch size, spacing, name legibility
+- [x] Game-version `Select` right-aligned on mobile
+- [x] Fit language selector + theme toggle into the header without clutter (group secondary options, e.g. menu/sheet)
+- [x] Polish state transitions (smooth change, touch feedback); review touch size, spacing, name legibility
 - [ ] (Optional) per-section counter — **TBD**
 - [ ] (Optional) fixed section index/shortcut — **TBD**
 

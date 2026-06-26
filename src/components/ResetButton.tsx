@@ -14,14 +14,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-export function ResetButton() {
+export function ResetButton({ className }: { className?: string }) {
   const { resetActiveVersion } = useClues()
   const { t } = useI18n()
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className={className}>
           <RotateCcw />
           {t("reset.trigger")}
         </Button>

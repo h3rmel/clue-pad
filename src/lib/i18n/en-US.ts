@@ -35,6 +35,9 @@ export const enUS: Dictionary = {
   // Language selector
   "language.label": "Language",
 
+  // Settings menu (theme + language)
+  "settings.label": "Settings",
+
   // Theme (light/dark mode)
   "theme.label": "Theme",
   "theme.system": "System",

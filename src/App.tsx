@@ -6,8 +6,7 @@ import { CategorySection } from "@/components/CategorySection"
 import { StatusModal } from "@/components/StatusModal"
 import { VersionSelect } from "@/components/VersionSelect"
 import { ResetButton } from "@/components/ResetButton"
-import { LanguageSelect } from "@/components/LanguageSelect"
-import { ThemeSelect } from "@/components/ThemeSelect"
+import { SettingsMenu } from "@/components/SettingsMenu"
 
 function App() {
   const { version } = useClues()
@@ -31,17 +30,17 @@ function App() {
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="sticky top-0 z-20 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-3">
-          <div className="flex items-center justify-between gap-3">
-            <h1 className="text-xl font-bold tracking-tight">clue-pad</h1>
-            <div className="flex items-center gap-2">
-              <ThemeSelect />
-              <LanguageSelect />
+      <header className="sticky top-0 z-20 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
+          <h1 className="text-xl font-bold tracking-tight">clue-pad</h1>
+          <div className="flex items-center gap-2">
+            <SettingsMenu />
+            {/* Desktop/tablet only — on mobile these live inside the sheet */}
+            <div className="hidden sm:flex items-center gap-2">
               <ResetButton />
+              <VersionSelect />
             </div>
           </div>
-          <VersionSelect />
         </div>
       </header>
 

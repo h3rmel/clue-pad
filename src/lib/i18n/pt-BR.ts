@@ -38,6 +38,9 @@ export const ptBR = {
   // Seletor de idioma
   "language.label": "Idioma",
 
+  // Menu de configurações (tema + idioma)
+  "settings.label": "Configurações",
+
   // Tema (modo claro/escuro)
   "theme.label": "Tema",
   "theme.system": "Sistema",

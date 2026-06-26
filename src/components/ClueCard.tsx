@@ -49,9 +49,10 @@ export function ClueCard({ item, status, onSelect }: ClueCardProps) {
       onClick={() => onSelect(item)}
       aria-label={`${item.name} — ${statusLabel}`}
       className={cn(
-        "group relative flex w-full flex-col items-center gap-2 rounded-xl border p-3 text-center transition-all",
+        "group relative flex w-full flex-col items-center gap-2 rounded-xl border p-3 text-center",
+        "transition-[border-color,background-color,box-shadow,transform] duration-150",
         "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "active:scale-[0.98]",
+        "active:scale-[0.97]",
         cardByStatus[status],
       )}
     >
