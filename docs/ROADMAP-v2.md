@@ -27,13 +27,13 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [ ] Verify all four item states are legible/contrasted in dark theme (do after Phase 3)
 
 ## Phase 3 — New state + color rework (SPEC-v2 §4.1–4.2)
-- [ ] Add `'discovered'` to the `ClueStatus` union (`src/lib/types.ts`)
-- [ ] `StatusModal` offers the 4th option ("Descoberto"); modal still shows current state
-- [ ] `storage` validator/fallback accepts `'discovered'`; unrecognized → `neutral` (no key version bump)
-- [ ] Verify existing saved games (3-value data) still load
-- [ ] `eliminated` → red palette (replace current dimmed/desaturated treatment)
-- [ ] `discovered` → green palette; `neutral`/`doubt` (amber) unchanged
-- [ ] Each state distinguishable without hue alone: badge label + distinct icon/shape (red/green colorblind mitigation)
+- [x] Add `'discovered'` to the `ClueStatus` union (`src/lib/types.ts`)
+- [x] `StatusModal` offers the 4th option ("Descoberto"); modal still shows current state
+- [x] `storage` validator/fallback accepts `'discovered'`; unrecognized → `neutral` (no key version bump)
+- [x] Verify existing saved games (3-value data) still load
+- [x] `eliminated` → red palette (replace current dimmed/desaturated treatment)
+- [x] `discovered` → green palette; `neutral`/`doubt` (amber) unchanged
+- [x] Each state distinguishable without hue alone: badge label + distinct icon/shape (red/green colorblind mitigation)
 
 ## Phase 4 — Placeholder refresh (SPEC-v2 §3)
 - [ ] Define the suspect color map (per slug, sourced from the physical board)

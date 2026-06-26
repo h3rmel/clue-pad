@@ -7,7 +7,12 @@ const SELECTED_VERSION_KEY = "clue-pad:selectedVersion:v1"
 const LOCALE_KEY = "clue-pad:locale:v1"
 const THEME_KEY = "clue-pad:theme:v1"
 
-const VALID_STATUS: readonly ClueStatus[] = ["neutral", "doubt", "eliminated"]
+const VALID_STATUS: readonly ClueStatus[] = [
+  "neutral",
+  "doubt",
+  "eliminated",
+  "discovered",
+]
 
 function stateKey(versionId: string): string {
   return `${STATE_PREFIX}${versionId}`

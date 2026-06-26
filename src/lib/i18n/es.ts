@@ -15,6 +15,8 @@ export const es: Dictionary = {
   "status.doubt.description": "Se sospecha que es la carta del crimen",
   "status.eliminated.label": "Eliminado",
   "status.eliminated.description": "Carta revelada — descartada",
+  "status.discovered.label": "Descubierto",
+  "status.discovered.description": "Confirmado como la carta del crimen",
 
   // Modal de estado
   "modal.description": "Marca el estado de este ítem.",

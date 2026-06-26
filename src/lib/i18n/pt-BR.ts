@@ -18,6 +18,8 @@ export const ptBR = {
   "status.doubt.description": "Suspeita de ser a carta do crime",
   "status.eliminated.label": "Eliminado",
   "status.eliminated.description": "Carta revelada — descartada",
+  "status.discovered.label": "Descoberto",
+  "status.discovered.description": "Carta do crime confirmada",
 
   // Modal de estado
   "modal.description": "Marque o estado deste item.",

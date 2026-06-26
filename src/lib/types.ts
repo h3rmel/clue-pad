@@ -3,7 +3,7 @@
 
 export type Category = "suspects" | "weapons" | "places"
 
-export type ClueStatus = "neutral" | "doubt" | "eliminated"
+export type ClueStatus = "neutral" | "doubt" | "eliminated" | "discovered"
 
 export interface GameItem {
   /** Slug estável e único DENTRO da versão (ex: 'sr-marinho'). Nunca um índice. */

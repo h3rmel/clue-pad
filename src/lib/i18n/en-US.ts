@@ -15,6 +15,8 @@ export const enUS: Dictionary = {
   "status.doubt.description": "Suspected to be the crime card",
   "status.eliminated.label": "Eliminated",
   "status.eliminated.description": "Card revealed — discarded",
+  "status.discovered.label": "Discovered",
+  "status.discovered.description": "Confirmed as the crime card",
 
   // Status modal
   "modal.description": "Mark this item's state.",

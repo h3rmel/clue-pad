@@ -34,7 +34,10 @@ const optionStyles: Record<ClueStatus, string> = {
   neutral: "data-[active=true]:border-primary",
   doubt:
     "data-[active=true]:border-amber-400 data-[active=true]:bg-amber-50 dark:data-[active=true]:bg-amber-950/40",
-  eliminated: "data-[active=true]:border-primary data-[active=true]:bg-muted",
+  eliminated:
+    "data-[active=true]:border-red-400 data-[active=true]:bg-red-50 dark:data-[active=true]:bg-red-950/40",
+  discovered:
+    "data-[active=true]:border-green-400 data-[active=true]:bg-green-50 dark:data-[active=true]:bg-green-950/40",
 }
 
 function StatusOptions({
