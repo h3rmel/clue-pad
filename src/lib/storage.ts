@@ -4,8 +4,15 @@ import type { ClueStatus, StatusMap } from "@/lib/types"
 // edições diferentes nunca se misturem.
 const STATE_PREFIX = "clue-pad:state:v1:"
 const SELECTED_VERSION_KEY = "clue-pad:selectedVersion:v1"
+const LOCALE_KEY = "clue-pad:locale:v1"
+const THEME_KEY = "clue-pad:theme:v1"
 
-const VALID_STATUS: readonly ClueStatus[] = ["neutral", "doubt", "eliminated"]
+const VALID_STATUS: readonly ClueStatus[] = [
+  "neutral",
+  "doubt",
+  "eliminated",
+  "discovered",
+]
 
 function stateKey(versionId: string): string {
   return `${STATE_PREFIX}${versionId}`
@@ -73,6 +80,47 @@ export function loadSelectedVersion(): string | null {
 export function saveSelectedVersion(versionId: string): void {
   try {
     localStorage.setItem(SELECTED_VERSION_KEY, versionId)
+  } catch {
+    // ignore
+  }
+}
+
+/**
+ * Idioma escolhido manualmente. Preferência global (não segmentada por versão).
+ * A validação do valor fica a cargo de quem lê (state/i18n).
+ */
+export function loadLocale(): string | null {
+  try {
+    return localStorage.getItem(LOCALE_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function saveLocale(locale: string): void {
+  try {
+    localStorage.setItem(LOCALE_KEY, locale)
+  } catch {
+    // ignore
+  }
+}
+
+/**
+ * Preferência de tema ('system' | 'light' | 'dark'). Preferência global.
+ * O mesmo valor é lido pelo script anti-FOUC em index.html (chave fixa).
+ * A validação fica a cargo de quem lê (state/theme).
+ */
+export function loadTheme(): string | null {
+  try {
+    return localStorage.getItem(THEME_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function saveTheme(theme: string): void {
+  try {
+    localStorage.setItem(THEME_KEY, theme)
   } catch {
     // ignore
   }

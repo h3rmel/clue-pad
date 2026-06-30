@@ -1,7 +1,12 @@
 import { Check } from "lucide-react"
 import type { ClueStatus, GameItem } from "@/lib/types"
-import { STATUS_META, STATUS_ORDER } from "@/lib/status"
+import {
+  STATUS_DESCRIPTION_KEY,
+  STATUS_LABEL_KEY,
+  STATUS_ORDER,
+} from "@/lib/status"
 import { useClues } from "@/state/clues"
+import { useI18n } from "@/state/i18n"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import {
@@ -29,7 +34,10 @@ const optionStyles: Record<ClueStatus, string> = {
   neutral: "data-[active=true]:border-primary",
   doubt:
     "data-[active=true]:border-amber-400 data-[active=true]:bg-amber-50 dark:data-[active=true]:bg-amber-950/40",
-  eliminated: "data-[active=true]:border-primary data-[active=true]:bg-muted",
+  eliminated:
+    "data-[active=true]:border-red-400 data-[active=true]:bg-red-50 dark:data-[active=true]:bg-red-950/40",
+  discovered:
+    "data-[active=true]:border-green-400 data-[active=true]:bg-green-50 dark:data-[active=true]:bg-green-950/40",
 }
 
 function StatusOptions({
@@ -39,10 +47,10 @@ function StatusOptions({
   current: ClueStatus
   onPick: (status: ClueStatus) => void
 }) {
+  const { t } = useI18n()
   return (
     <div className="flex flex-col gap-2">
       {STATUS_ORDER.map((status) => {
-        const meta = STATUS_META[status]
         const active = status === current
         return (
           <button
@@ -57,9 +65,9 @@ function StatusOptions({
             )}
           >
             <span className="flex flex-col">
-              <span className="font-medium">{meta.label}</span>
+              <span className="font-medium">{t(STATUS_LABEL_KEY[status])}</span>
               <span className="text-sm text-muted-foreground">
-                {meta.description}
+                {t(STATUS_DESCRIPTION_KEY[status])}
               </span>
             </span>
             {active && (
@@ -74,13 +82,14 @@ function StatusOptions({
 
 export function StatusModal({ item, open, onOpenChange }: StatusModalProps) {
   const { getStatus, setStatus } = useClues()
+  const { t } = useI18n()
   const isMobile = useIsMobile()
 
   if (!item) return null
 
   const current = getStatus(item.id)
   const title = item.name
-  const description = "Marque o estado deste item."
+  const description = t("modal.description")
 
   const handlePick = (status: ClueStatus) => {
     setStatus(item.id, status)
