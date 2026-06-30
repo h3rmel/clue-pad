@@ -36,15 +36,15 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [x] Each state distinguishable without hue alone: badge label + distinct icon/shape (red/green colorblind mitigation)
 
 ## Phase 4 — Placeholder refresh (SPEC-v2 §3)
-- [ ] Define the suspect color map (per slug, sourced from the physical board)
-- [ ] Decide per-category background for weapons & places (no character color)
-- [ ] Off-white/bordered treatment for "Dona Branca" (white) so it stays visible on light theme
-- [ ] Pick icon source (Lucide set vs. custom)
-- [ ] Generation manifest/script: `slug → { background color, icon }` (build/design-time, not runtime model)
-- [ ] Regenerate the 27 PNGs at the same filenames in `public/games/estrela-2020/`
-- [ ] Confirm: PNG only, code does NOT distinguish placeholder from final art, fallback still works
-- [ ] Legible in light and dark themes
-- [ ] Update `public/games/estrela-2020/README.md` if style/origin changed; official art stays out of the repo
+- [x] Define the suspect color map (per slug, sourced from the physical board)
+- [x] Decide per-category background for weapons & places (no character color) — steel `#2d3a4a` / stone `#3d3530`
+- [x] Off-white/bordered treatment for "Dona Branca" (white) so it stays visible on light theme
+- [x] Pick icon source (Lucide set vs. custom) — Lucide (already a dep; node data read at build time)
+- [x] Generation manifest/script: `slug → { background color, icon }` (build/design-time, not runtime model) — `scripts/generate-placeholders.mjs`, `pnpm placeholders`
+- [x] Regenerate the 27 PNGs at the same filenames in `public/games/estrela-2020/`
+- [x] Confirm: PNG only, code does NOT distinguish placeholder from final art, fallback still works
+- [x] Legible in light and dark themes (each PNG carries its own background; Dona Branca bordered for light theme)
+- [x] Update `public/games/estrela-2020/README.md` if style/origin changed; official art stays out of the repo
 
 ## Phase 5 — Header layout / mobile polish (SPEC-v2 §4.3–4.4)
 - [x] Game-version `Select` right-aligned on mobile
