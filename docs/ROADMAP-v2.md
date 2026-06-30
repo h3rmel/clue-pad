@@ -24,7 +24,7 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [x] Persist preference in `clue-pad:theme:v1`
 - [x] No-FOUC inline script in `index.html` (apply theme before React mounts)
 - [x] Update PWA manifest `theme_color`/`background_color` if needed
-- [ ] Verify all four item states are legible/contrasted in dark theme (do after Phase 3)
+- [x] Verify all four item states are legible/contrasted in dark theme (do after Phase 3)
 
 ## Phase 3 — New state + color rework (SPEC-v2 §4.1–4.2)
 - [x] Add `'discovered'` to the `ClueStatus` union (`src/lib/types.ts`)
@@ -54,8 +54,8 @@ Step-by-step plan to build the features specified in [SPEC-v2.md](SPEC-v2.md). C
 - [ ] (Optional) fixed section index/shortcut — **TBD**
 
 ## Phase 6 — Verification (acceptance criteria, SPEC-v2 §7)
-- [ ] i18n: auto-detect + manual override + persist; all chrome translated in 3 languages; item names stay pt-BR; compile-time key coverage
-- [ ] Dark mode: default follows system; toggle overrides + persists; no boot flash; 4 states contrasted in both themes
-- [ ] Placeholders: 27 correct filenames (PNG); suspect/board colors + per-category backgrounds; item-referencing icons; official art outside repo
-- [ ] UI/UX: 4th state selectable + persisted (old data loads); red `eliminated` / green `discovered`; distinguishable without hue; version selector right-aligned on mobile
-- [ ] `pnpm build` clean (tsc + vite) and lint without errors
+- [x] i18n: auto-detect + manual override + persist; all chrome translated in 3 languages; item names stay pt-BR; compile-time key coverage
+- [x] Dark mode: default follows system; toggle overrides + persists; no boot flash; 4 states contrasted in both themes
+- [x] Placeholders: 27 correct filenames (PNG); suspect/board colors + per-category backgrounds; item-referencing icons; official art outside repo
+- [x] UI/UX: 4th state selectable + persisted (old data loads); red `eliminated` / green `discovered`; distinguishable without hue; version selector right-aligned on mobile
+- [x] `pnpm build` clean (tsc + vite) and lint without errors
