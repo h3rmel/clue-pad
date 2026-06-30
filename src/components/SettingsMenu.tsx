@@ -12,9 +12,11 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { VersionSelect } from "@/components/VersionSelect"
 import { ResetButton } from "@/components/ResetButton"
+import { Footer } from "@/components/Footer"
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -118,6 +120,11 @@ export function SettingsMenu() {
             <ResetButton className="w-full justify-start" />
           </section>
         </div>
+
+        {/* Rodapé — só no mobile; no desktop o rodapé fica no fim da página */}
+        <SheetFooter className="mt-auto border-t sm:hidden">
+          <Footer />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )

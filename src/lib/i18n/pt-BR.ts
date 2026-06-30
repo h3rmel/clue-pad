@@ -46,6 +46,10 @@ export const ptBR = {
   "theme.system": "Sistema",
   "theme.light": "Claro",
   "theme.dark": "Escuro",
+
+  // Rodapé
+  "footer.github": "Ver no GitHub",
+  "footer.rights": "Todos os direitos reservados.",
 } as const
 
 export type TranslationKey = keyof typeof ptBR

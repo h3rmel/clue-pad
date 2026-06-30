@@ -7,6 +7,7 @@ import { StatusModal } from "@/components/StatusModal"
 import { VersionSelect } from "@/components/VersionSelect"
 import { ResetButton } from "@/components/ResetButton"
 import { SettingsMenu } from "@/components/SettingsMenu"
+import { Footer } from "@/components/Footer"
 
 function App() {
   const { version } = useClues()
@@ -54,6 +55,10 @@ function App() {
           />
         ))}
       </main>
+
+      <div className="border-t">
+        <Footer className="mx-auto max-w-3xl px-4 py-6" />
+      </div>
 
       <StatusModal
         item={selected}

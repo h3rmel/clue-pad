@@ -43,4 +43,8 @@ export const es: Dictionary = {
   "theme.system": "Sistema",
   "theme.light": "Claro",
   "theme.dark": "Oscuro",
+
+  // Pie de página
+  "footer.github": "Ver en GitHub",
+  "footer.rights": "Todos los derechos reservados.",
 }
